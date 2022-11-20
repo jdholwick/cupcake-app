@@ -20,6 +20,7 @@
     tools:context=".PickupFragment">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.cupcake.model.OrderViewModel" />
@@ -43,12 +44,12 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <RadioButton
-                    android:checked="@{viewModel.date.equals(viewModel.dateOptions[0])}"
-                    android:onClick="@{() -> viewModel.setDate(viewModel.dateOptions[0])}"
-                    android:text="@{viewModel.dateOptions[0]}"
                     android:id="@+id/option0"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:checked="@{viewModel.date.equals(viewModel.dateOptions[0])}"
+                    android:onClick="@{() -> viewModel.setDate(viewModel.dateOptions[0])}"
+                    android:text="@{viewModel.dateOptions[0]}" />
 
                 <RadioButton
                     android:id="@+id/option1"
@@ -92,9 +93,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/side_margin"
+                android:text="@{@string/subtotal_price(viewModel.price)}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider"
-                tools:text="Subtotal $5.00" />
+                app:layout_constraintTop_toBottomOf="@id/divider" />
 
             <Button
                 android:id="@+id/next_button"

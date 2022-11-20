@@ -3,12 +3,11 @@ package com.example.cupcake.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.util.*
 import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.Calendar
+import java.util.*
 
 private const val PRICE_PER_CUPCAKE = 2.00
+private const val PRICE_FOR_SAME_DAY_PICKUP = 3.00
 
 class OrderViewModel : ViewModel() {
     private val _quantity = MutableLiveData<Int>(0)
@@ -36,6 +35,7 @@ class OrderViewModel : ViewModel() {
 
     fun setDate(pickupDate: String) {
         _date.value = pickupDate
+        updatePrice()
     }
 
     fun hasNoFlavorSet(): Boolean {
@@ -56,6 +56,11 @@ class OrderViewModel : ViewModel() {
     }
 
     private fun updatePrice() {
-        _price.value = (quantity.value ?: 0) * PRICE_PER_CUPCAKE
+        var calculatedPrice = (quantity.value ?: 0) * PRICE_PER_CUPCAKE
+        // If the user selected the first option (today) for pickup, add the surcharge
+        if (dateOptions[0] == _date.value) {
+            calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP
+        }
+        _price.value = calculatedPrice
     }
 }
